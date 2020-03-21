@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>SureCoverage Hand Processing</title>
+	</head>
+	<body>
+		<h2>SureCoverage Hand Processing</h2>
+		<p id="status">OpenCV.js is loading, please wait...</p>
+		<div id="images">
+			<div id="imgSrc">	
+				<img id="canvasInput" alt="No Image"></img>
+				<span>imageSrc</span>
+				<input type="file" id="fileInput" name="file"></input>
+			</div>
+			<div id="imgRes">
+				<canvas id="canvasOutput" ></canvas>
+				<span>canvasOutput</span>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			
+			let imgElement = document.getElementById('canvasInput');
+			let inputElement = document.getElementById('fileInput');
+			inputElement.addEventListener('change', (e) => {
+				imgElement.src = URL.createObjectURL(e.target.files[0]);
+			}, false);
+			imgElement.onload = function() {
+
+				// input the image of the hand
+				let src = cv.imread('canvasInput');
+
+				// make a greyscale copy of the image of the hand for thresholding
+				let grey = new cv.Mat();
+				cv.cvtColor(src, grey, cv.COLOR_RGBA2GRAY, 0);
+				
+				// applying the inverse binary threshold creates a mask that filters out the clean parts of the hand 
+				let mask = new cv.Mat();
+				cv.threshold(grey, mask, 50, 255, cv.THRESH_BINARY_INV);
+
+				// use the mask to store the image of the hand without the clean parts
+				let dirtyHand = cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
+				src.copyTo(dirtyHand, mask);
+
+				// make a greyscale copy of the dirtyHand so it may be filtered again
+				let grey2 = new cv.Mat();
+				cv.cvtColor(dirtyHand, grey2, cv.COLOR_RGBA2GRAY, 0);
+
+				// applying the binary threshold creates a new mask that will filter out the background
+				let mask2 = new cv.Mat();
+				cv.threshold(grey2, mask2, 35, 255, cv.THRESH_BINARY);
+
+				// use this new mask to produce an image of only the dirty parts of the hand, with no background
+				let res = cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
+				src.copyTo(res, mask2);
+
+				cv.imshow('canvasOutput', res);
+					
+				src.delete();
+				grey.delete();
+				mask.delete();
+				dirtyHand.delete();
+				grey2.delete();
+				maks2.delete();
+				res.delete();
+			
+			};
+		
+			function onOpenCvReady() {
+				document.getElementById('status').innerHTML = 'OpenCV.js is ready.';
+			}
+		
+		</script>
+	
+		<script async src="opencv.js" onload="onOpenCvReady();" type="text/javascript"></script>
+	
+	</body>
+</html>
