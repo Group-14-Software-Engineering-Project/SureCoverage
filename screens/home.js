@@ -1,11 +1,27 @@
 import React, {Component, useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, FlatList, Button, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity,Button, FlatList, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
 import {gStyles} from '../styles/globalStyles';
+import ActionSheet from 'react-native-actionsheet';
 import {Linking} from 'expo';
 
 export default function Home ({ navigation }){
+    showActionSheet = () => {
+        this.ActionSheet.show()
+    }
+
+    handlePress = (buttonIndex) => {
+        if(buttonIndex === 0 )
+            Linking.openURL('https://surewash.com/contact-us/');
+        else if(buttonIndex === 1)
+            Linking.openURL('https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public')
+        else if(buttonIndex === 2)
+            Linking.openURL('https://surewash.com/privacy-policy/')
+        else if( buttonIndex === 3)
+            Linking.openURL('https://surewash.com/terms-of-service/')
+
+
+    }
     return (
             <View  style= {gStyles.homeScreen}>
                 <LinearGradient
@@ -14,20 +30,25 @@ export default function Home ({ navigation }){
                 
                 <View style = {gStyles.container}>
                     <Text style = {gStyles.HomeText}>SureCoverage</Text>
-                    <Text style = {gStyles.PresentText}>By </Text>
+                    <Text style = {gStyles.PresentText}>By</Text>
                         <Image style= {{width: 300 , height: 100}} source={require('./surewash.png')} resizeMode={'contain'}/>
-                    <Button title= 'Camera' onPress={() => navigation.navigate('Cam')} />
-                    <Button title= 'Hand Sanitation Tutorial' onPress={() => navigation.navigate('Cam')} />
-                    
-                </View>
+                    <Button  title = 'Camera' onPress={() => navigation.navigate('Cam')} >
+                    </Button>
+                    <Button title = 'Glow Gel Tutorial' onPress={() => navigation.navigate('Cam')}>
+                     </Button>
 
-                <View style= {gStyles.leftHandButtons}>
-                    <Button title= 'Contact SureWash' onPress={() => Linking.openURL('https://surewash.com/contact-us/')} />
-                    <Button title= 'Learn About COVID-19' onPress={() => Linking.openURL('https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public')} />
-                    <Button title= 'Privacy Policy' onPress={() => Linking.openURL('https://surewash.com/privacy-policy/')} />
-                    <Button title= 'Terms of Service' onPress={() => Linking.openURL('https://surewash.com/terms-of-service/')} />
-                    
-                </View>
+                     <Button title = {'Options'} onPress={this.showActionSheet}/>
+                     <ActionSheet
+                        ref={o => this.ActionSheet = o}
+                        title={'Options'}
+                        options={['Contact Surewash', 'Learn About Covid-19', 'Privacy Policy', 'Terms of Service', 'Cancel']}
+                        cancelButtonIndex={4}
+                        destructiveButtonIndex={1}
+                        onPress={this.handlePress}
+                        />
+
+                </View> 
+
                 </LinearGradient>
             </View>
         
