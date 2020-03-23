@@ -8,14 +8,16 @@
 		<h2>SureCoverage Hand Processing</h2>
 		<p id="status">OpenCV.js is loading, please wait...</p>
 		<div id="images">
-			<div id="imgSrc">	
+			<div id="imgSrc">
+				<p>Your hand:</p>
 				<img id="canvasInput" alt="No Image"></img>
-				<span>imageSrc</span>
+				<br>
 				<input type="file" id="fileInput" name="file"></input>
 			</div>
 			<div id="imgRes">
-				<canvas id="canvasOutput" ></canvas>
-				<span>canvasOutput</span>
+				<p>Areas that need more washing:</p>
+				<canvas id="canvasOutput"></canvas>
+				<p>Your score: <span id="handScore"></span></p>
 			</div>
 		</div>
 		
@@ -55,14 +57,49 @@
 				let res = cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
 				src.copyTo(res, mask2);
 
+				let displayScore = document.getElementById('handScore');
+				let numDirtyPixels = cv.countNonZero(mask2);
+				let screenSize = (src.rows * src.cols);
+				let finalScore = 100 - ((numDirtyPixels/(screenSize * 0.75)) * 100);
+				displayScore.innerHTML = (finalScore.toFixed(2) + "/100");
+				alert("Your hand cleanliness score is: " + finalScore.toFixed(2) + "/100");
+
 				cv.imshow('canvasOutput', res);
+
+				/*let src = cv.imread('canvasInput');
+				let grey = new cv.Mat();
+				cv.cvtColor(src, grey, cv.COLOR_RGBA2GRAY, 0);
+				let thresh = new cv.Mat();
+				cv.threshold(grey, thresh, 35, 255, cv.THRESH_BINARY);
+				let canny = new cv.Mat();
+				cv.Canny(thresh, canny, 100, 200);
+				let blurred = new cv.Mat();
+				let kernel = cv.Mat.ones(4, 4, cv.CV_8U);
+				let anchor = new cv.Point(-1, -1);
+				cv.dilate(canny, blurred, kernel, anchor, 1, cv.BORDER_CONSTANT, cv.morphologyDefaultBorderValue());
+				let contours = new cv.MatVector();
+				let hierarchy = new cv.Mat();
+				cv.findContours(blurred, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+				let res = cv.Mat.zeros(src.rows, src.cols, src.type());
+				let maxArea = 0;
+				let maxIndex = 0;
+				for (let i = 0; i < contours.size(); i++) {
+					let thisArea = cv.contourArea(contours.get(i));
+					if (thisArea > maxArea) {
+						maxArea = thisArea;
+						maxIndex = i;
+					}
+				}
+				cv.drawContours(res, contours, maxIndex, new cv.Scalar(255,255,255,255), 2, cv.LINE_8);
+
+				cv.imshow('canvasOutput', res);*/
 					
 				src.delete();
 				grey.delete();
 				mask.delete();
 				dirtyHand.delete();
 				grey2.delete();
-				maks2.delete();
+				mask2.delete();
 				res.delete();
 			
 			};
