@@ -30,57 +30,29 @@
 			}, false);
 			imgElement.onload = function() {
 
-				// input the image of the hand
+				// read in the captured image of the hand
 				let src = cv.imread('canvasInput');
 
-				// make a greyscale copy of the image of the hand for thresholding
+				// reduce the image of the hand to greyscale
 				let grey = new cv.Mat();
 				cv.cvtColor(src, grey, cv.COLOR_RGBA2GRAY, 0);
-				
-				// applying the inverse binary threshold creates a mask that filters out the clean parts of the hand 
-				let mask = new cv.Mat();
-				cv.threshold(grey, mask, 50, 255, cv.THRESH_BINARY_INV);
 
-				// use the mask to store the image of the hand without the clean parts
-				let dirtyHand = cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
-				src.copyTo(dirtyHand, mask);
-
-				// make a greyscale copy of the dirtyHand so it may be filtered again
-				let grey2 = new cv.Mat();
-				cv.cvtColor(dirtyHand, grey2, cv.COLOR_RGBA2GRAY, 0);
-
-				// applying the binary threshold creates a new mask that will filter out the background
-				let mask2 = new cv.Mat();
-				cv.threshold(grey2, mask2, 35, 255, cv.THRESH_BINARY);
-
-				// use this new mask to produce an image of only the dirty parts of the hand, with no background
-				let res = cv.Mat.zeros(src.rows, src.cols, cv.CV_8UC4);
-				src.copyTo(res, mask2);
-
-				let displayScore = document.getElementById('handScore');
-				let numDirtyPixels = cv.countNonZero(mask2);
-				let screenSize = (src.rows * src.cols);
-				let finalScore = 100 - ((numDirtyPixels/(screenSize * 0.75)) * 100);
-				displayScore.innerHTML = (finalScore.toFixed(2) + "/100");
-				alert("Your hand cleanliness score is: " + finalScore.toFixed(2) + "/100");
-
-				cv.imshow('canvasOutput', res);
-
-				/*let src = cv.imread('canvasInput');
-				let grey = new cv.Mat();
-				cv.cvtColor(src, grey, cv.COLOR_RGBA2GRAY, 0);
-				let thresh = new cv.Mat();
-				cv.threshold(grey, thresh, 35, 255, cv.THRESH_BINARY);
-				let canny = new cv.Mat();
-				cv.Canny(thresh, canny, 100, 200);
-				let blurred = new cv.Mat();
-				let kernel = cv.Mat.ones(4, 4, cv.CV_8U);
+				// this filter removes unwanted contours from the hand interior and raises brightness
+				let filtered = new cv.Mat();
+				let kernel = cv.Mat.eye(7, 7, cv.CV_32FC1);
 				let anchor = new cv.Point(-1, -1);
-				cv.dilate(canny, blurred, kernel, anchor, 1, cv.BORDER_CONSTANT, cv.morphologyDefaultBorderValue());
+				cv.filter2D(grey, filtered, cv.CV_8U, kernel, anchor, 0, cv.BORDER_DEFAULT);
+
+				// apply a binary threshold to separate the hand from the background
+				let thresholded = new cv.Mat();
+				cv.threshold(filtered, thresholded, 250, 255, cv.THRESH_BINARY);
+				
+				// find the contours from the thresholded image
 				let contours = new cv.MatVector();
 				let hierarchy = new cv.Mat();
-				cv.findContours(blurred, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
-				let res = cv.Mat.zeros(src.rows, src.cols, src.type());
+				cv.findContours(thresholded, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE);
+
+				// search for the longest contour since that'll be the hand outline
 				let maxArea = 0;
 				let maxIndex = 0;
 				for (let i = 0; i < contours.size(); i++) {
@@ -90,18 +62,17 @@
 						maxIndex = i;
 					}
 				}
-				cv.drawContours(res, contours, maxIndex, new cv.Scalar(255,255,255,255), 2, cv.LINE_8);
 
-				cv.imshow('canvasOutput', res);*/
-					
-				src.delete();
-				grey.delete();
-				mask.delete();
-				dirtyHand.delete();
-				grey2.delete();
-				mask2.delete();
-				res.delete();
-			
+				// sketch the outline of the hand for use as a mask
+				let handOutline = cv.Mat.zeros(src.rows, src.cols, src.type());
+				cv.drawContours(handOutline, contours, maxIndex, new cv.Scalar(255,255,255,255), cv.FILLED);
+
+				// apply the hand outline mask to the original image to eliminate the background completely
+				let hand = cv.Mat.zeros(src.rows, src.cols, src.type());
+				src.copyTo(hand, handOutline);
+
+				cv.imshow('canvasOutput', hand);
+
 			};
 		
 			function onOpenCvReady() {
