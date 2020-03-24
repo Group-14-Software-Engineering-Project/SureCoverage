@@ -9,15 +9,18 @@
 		<p id="status">OpenCV.js is loading, please wait...</p>
 		<div id="images">
 			<div id="imgSrc">
-				<p>Your hand:</p>
+				<p>----- YOUR HAND -----</p>
 				<img id="canvasInput" alt="No Image"></img>
 				<br>
 				<input type="file" id="fileInput" name="file"></input>
 			</div>
 			<div id="imgRes">
-				<p>Areas that need more washing:</p>
+				<p>----- HEATMAP -----</p>
+				<p>--- RED = needs more washing ---</p>
+				<p>--- YELLOW = ok ---</p>
 				<canvas id="canvasOutput"></canvas>
-				<p>Your score: <span id="handScore"></span></p>
+				<p>----- YOUR HAND COVERAGE SCORE -----</p>
+				<p><span id="score">???</span>%</p>
 			</div>
 		</div>
 		
@@ -25,19 +28,23 @@
 			
 			let imgElement = document.getElementById('canvasInput');
 			let inputElement = document.getElementById('fileInput');
+			let handScore = document.getElementById('score');
 			inputElement.addEventListener('change', (e) => {
 				imgElement.src = URL.createObjectURL(e.target.files[0]);
 			}, false);
 			imgElement.onload = function() {
 
+				// ------- IMAGE FILTERING -------
+				
 				// read in the captured image of the hand
 				let src = cv.imread('canvasInput');
 
-				// reduce the image of the hand to greyscale
+				// reduce the image of the hand to greyscale for filtering
 				let grey = new cv.Mat();
 				cv.cvtColor(src, grey, cv.COLOR_RGBA2GRAY, 0);
 
 				// this filter removes unwanted contours from the hand interior and raises brightness
+				// this makes the outline of the hand stand out more so it can be more easily identified
 				let filtered = new cv.Mat();
 				let kernel = cv.Mat.eye(7, 7, cv.CV_32FC1);
 				let anchor = new cv.Point(-1, -1);
@@ -47,31 +54,130 @@
 				let thresholded = new cv.Mat();
 				cv.threshold(filtered, thresholded, 250, 255, cv.THRESH_BINARY);
 				
+				// ------- IDENTIFYING THE HAND -------
+
 				// find the contours from the thresholded image
 				let contours = new cv.MatVector();
 				let hierarchy = new cv.Mat();
 				cv.findContours(thresholded, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE);
 
-				// search for the longest contour since that'll be the hand outline
+				// search for the longest contour because that'll be the hand outline
 				let maxArea = 0;
 				let maxIndex = 0;
 				for (let i = 0; i < contours.size(); i++) {
+					
 					let thisArea = cv.contourArea(contours.get(i));
 					if (thisArea > maxArea) {
 						maxArea = thisArea;
 						maxIndex = i;
 					}
+
 				}
 
-				// sketch the outline of the hand for use as a mask
-				let handOutline = cv.Mat.zeros(src.rows, src.cols, src.type());
-				cv.drawContours(handOutline, contours, maxIndex, new cv.Scalar(255,255,255,255), cv.FILLED);
+				// store the area of the hand for later use when returning the cleanliness score
+				let handArea = maxArea;
 
-				// apply the hand outline mask to the original image to eliminate the background completely
-				let hand = cv.Mat.zeros(src.rows, src.cols, src.type());
-				src.copyTo(hand, handOutline);
+				// draw the shape of the hand for use as a mask
+				let handShape = cv.Mat.zeros(grey.rows, grey.cols, grey.type());
+				cv.drawContours(handShape, contours, maxIndex, new cv.Scalar(255), cv.FILLED);
 
-				cv.imshow('canvasOutput', hand);
+				// apply the hand-shape mask to the greyscale image to eliminate the background completely
+				// after this we have successfully captured the hand by itself
+				let greyHand = cv.Mat.zeros(grey.rows, grey.cols, grey.type());
+				grey.copyTo(greyHand, handShape);
+
+				// ------- MAKING A HEATMAP OF THE HAND -------
+
+				// create a heatmap of the hand to show where needs more washing
+				let heatmap = cv.Mat.zeros(src.rows, src.cols, src.type());
+				
+				// anything "cleaner" than this value will be ignored
+				let maxIntensity = 100;
+				
+				// anything "dirtier" than this value is the background
+				let minIntensity = 30;
+				
+				// the mid-point of the current +/- range for capturing colour intensity (ie: cleanliness)
+				let targetIntensity = minIntensity;
+				
+				// how much the mid-point of the current intensity range increases each loop
+				// larger step = less colours "visited" = less variation in heatmap colour (so less insightful)
+				let intensityStep = 2;
+
+				// the lower this value is the more red it is
+				// the higher this value is the more yellow it is
+				// increasing this each loop is what creates the heatmap
+				let redToYellow = 0;
+					
+				// this value determines how much yellower the red gets each loop
+				// it grows exponentially so that more of the hand is yellow than red
+				let redToYellowIncrease = 1.7;
+
+				// the exponential factor in the red to yellow transition
+				// this is what determines the speed at which the red falls off to yellow
+				let redToYellowFactor = 1.7;
+
+				// each loop is the next colour/cleanliness band between the "dirtiest" and "cleanest"
+				while (targetIntensity <= maxIntensity) {
+					
+					// the current colour in the [red -> yellow] range to be drawn on the heatmap
+					let colour = new cv.Scalar(255, redToYellow, 0, 255);
+					let colourSheet = new cv.Mat(src.rows, src.cols, src.type(), colour);
+
+					// this mask eliminates any pixels "dirtier" than the current cleanliness band
+					let maskLwr = new cv.Mat();
+					cv.threshold(greyHand, maskLwr, (targetIntensity - intensityStep), 255, cv.THRESH_BINARY);
+					
+					// this mask eliminates any pixels "cleaner" than the current cleanliness band
+					let maskUpr = new cv.Mat();
+					cv.threshold(greyHand, maskUpr, (targetIntensity + intensityStep), 255, cv.THRESH_BINARY_INV);
+					
+					// combine the two masks to capture only the pixels that lie within the current cleanliness band
+					let mask = cv.Mat.zeros(grey.rows, grey.cols, grey.type());
+					cv.bitwise_and(maskUpr, maskLwr, mask);
+
+					// colour in the heatmap with the current colour at the pixels in the current cleanliness band
+					colourSheet.copyTo(heatmap, mask);
+					
+					// release memory baggage
+					colourSheet.delete();
+					maskLwr.delete();
+					maskUpr.delete();
+
+					// advance the mid-point for the next cleanliness band
+					// the doubling is because the mid-point must account for the +/- range
+					targetIntensity += (2*intensityStep);
+
+					// apply the exponential growth to the speed of the transition from red to yellow
+					redToYellowIncrease = (redToYellowFactor*redToYellowIncrease);
+
+					// make the colour of the next cleanliness band yellower since it'll be "cleaner"
+					redToYellow += Math.round(redToYellowIncrease);
+
+				}
+				
+				cv.imshow('canvasOutput', heatmap);
+
+				// ------- CALCULATE HAND SCORE -------
+
+				// any pixel below this intensity isn't "clean" enough
+				let cleanCutoff = 50;
+
+				// filter out the pixels that aren't "clean" enough
+				let cleanHand = new cv.Mat();
+				cv.threshold(greyHand, cleanHand, cleanCutoff, 255, cv.THRESH_BINARY);
+				
+				// count the number of "clean" pixels in the hand
+				let cleanArea = cv.countNonZero(cleanHand);
+
+				// the cleanliness score is the ratio of clean pixels to total pixels in the hand
+				let cleanlinessScore = (cleanArea/handArea)*100;
+				handScore.innerHTML = cleanlinessScore.toFixed(2);
+
+				// release memory baggage
+				src.delete();grey.delete();
+				filtered.delete();thresholded.delete();handShape.delete();greyHand.delete();cleanHand.delete();
+				kernel.delete();contours.delete();hierarchy.delete();
 
 			};
 		
