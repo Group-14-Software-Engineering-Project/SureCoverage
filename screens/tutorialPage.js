@@ -19,11 +19,31 @@ export default class tutPage extends Component {
                 require('./image7.png'),
                 require('./image8.png'),
                 require('./image12.png')
+            ],
+
+            slideText: [
+                "Rub hands palm to palm.",
             ]
             
         };
 
     }
+    handlePress = (index) => {
+        if(index ===0)
+            this.setState({slideText: "Rub hands palm to palm." });
+        else if(index === 1)
+            this.setState({slideText: "Right palm over left dorsum with interlaced fingers and vica versa." });
+        else if(index === 2)
+            this.setState({slideText: "Palm to palm with fingers interlaced." });
+        else if(index === 3)
+            this.setState({slideText: "Backs of fingers to opposing palms with fingers interlocked." });
+        else if(index === 4)
+            this.setState({slideText: "Rotational rubbing, backwards and forwards with clasped fingers of right hand in left palm and vica versa" });
+        else if(index === 5)
+            this.setState({slideText: "You are ready to take a photo!" });
+
+    }
+
 
     render() {
         return(
@@ -31,11 +51,15 @@ export default class tutPage extends Component {
             <LinearGradient
                 colors={['#74ebd5', '#acb6e5']}
                 style= {gStyles.homeScreen}>
+                 
+                <Text style = {gStyles.SlideText}>How to Apply Glow Germ</Text>
                 <View style = {styles.containers}>
                     <SliderBox 
                         images={this.state.images}
-                        sliderBoxHeight={400}
+                        sliderBoxHeight={300}
+                        currentImageEmitter ={index => this.handlePress(index)}
                         autoplay
+                        disableOnPress = {true}
                         dotStyle={{width:0,
                         height:0
                         }}
@@ -51,12 +75,14 @@ export default class tutPage extends Component {
                         }}
                         ImageComponentStyle={{
                             borderRadius: 15, 
-                            width: '90%', 
+                            width: '98%', 
                             marginTop: 15
                         }}
 
                     />
+                    <Text>{this.state.slideText}</Text>
                 </View>
+
             </LinearGradient>
         )
     }

@@ -6,7 +6,7 @@ export const gStyles = StyleSheet.create({
         fontSize: 48,
         fontWeight: 'bold',
         color: '#333',
-        padding: 10
+        padding: 10,
     },
     PresentText: {
         fontSize: 30,
@@ -14,6 +14,14 @@ export const gStyles = StyleSheet.create({
         fontWeight:'bold',
         padding: 5
 
+    },
+    SlideText:{
+        fontSize:28,
+        fontWeight: 'bold',
+        color: '#333',
+        alignItems:'center',
+        justifyContent:'center',
+        paddingLeft:25
     },
     HomeContainer : {
         borderWidth: 0,
