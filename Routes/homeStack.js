@@ -7,7 +7,12 @@ import Tutorial from '../screens/tutorialPage'
 
 const screens = {
     Home: {
-        screen: Home
+        screen: Home,
+        navigationOptions : {
+            headerStyle: {
+                backgroundColor:'#388E8E'
+            }
+        }
     },
     Cam: {
         screen: Cam
@@ -16,6 +21,13 @@ const screens = {
         screen:Tutorial
     }
 }
-const stackHome = createStackNavigator(screens);
+const stackHome = createStackNavigator(screens , {
+    defaultNavigationOptions: {
+        headerStyle: {
+            backgroundColor: '#388E8E'
+        },
+        headerTintColor: '#fff'
+    }
+});
 
 export default createAppContainer(stackHome);
