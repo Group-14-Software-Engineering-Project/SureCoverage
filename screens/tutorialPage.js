@@ -38,8 +38,10 @@ export default class tutPage extends Component {
         else if(index === 3)
             this.setState({slideText: "Backs of fingers to opposing palms with fingers interlocked." });
         else if(index === 4)
-            this.setState({slideText: "Rotational rubbing, backwards and forwards with clasped fingers of right hand in left palm and vica versa" });
+            this.setState({slideText: "Rotational rubbing of left thumb clasped in right palm and vica versa." });
         else if(index === 5)
+            this.setState({slideText: "Rotational rubbing, backwards and forwards with clasped fingers of right hand in left palm and vica versa" });
+        else if(index === 6)
             this.setState({slideText: "You are ready to take a photo!" });
 
     }
@@ -80,7 +82,7 @@ export default class tutPage extends Component {
                         }}
 
                     />
-                    <Text>{this.state.slideText}</Text>
+                    <Text style={gStyles.slideShowText}>{this.state.slideText}</Text>
                 </View>
 
             </LinearGradient>

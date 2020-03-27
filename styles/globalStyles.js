@@ -54,4 +54,13 @@ export const gStyles = StyleSheet.create({
         top: 0,
         left: 0
     },
+    slideShowText: {
+        flex:1,
+        fontSize:34,
+        alignItems:'center',
+        justifyContent:'center',
+        alignSelf:'center',
+        textAlign:'center',
+        color: '#708090'
+    },
 });

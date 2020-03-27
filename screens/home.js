@@ -34,7 +34,7 @@ export default function Home ({ navigation }){
                         <Image style= {{width: 300 , height: 100}} source={require('./surewash.png')} resizeMode={'contain'}/>
                     <Button  title = 'Camera' onPress={() => navigation.navigate('Cam')} >
                     </Button>
-                    <Button title = 'Glow Gel Tutorial' onPress={() => navigation.navigate('Tutorial')}>
+                    <Button title = 'Glow Germ Tutorial' onPress={() => navigation.navigate('Tutorial')}>
                      </Button>
 
                      <Button title = {'Options'} onPress={this.showActionSheet}/>
