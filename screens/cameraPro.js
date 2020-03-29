@@ -2,6 +2,7 @@ import React from 'react';
 import { Camera } from 'expo-camera';
 import { View, Text } from 'react-native';
 import * as Permissions from 'expo-permissions';
+import * as MediaLibrary from 'expo-media-library';
 
 import styles from './styles';
 import Toolbar from './toolbar.component';
@@ -28,17 +29,21 @@ export default class CameraPage extends React.Component {
     };
 
     handleShortCapture = async () => {
-        const photoData = await this.camera.takePictureAsync();
-        this.setState({ capturing: false, captures: [photoData, ...this.state.captures] })
+        const {uri} = await this.camera.takePictureAsync();
+        await MediaLibrary.saveToLibraryAsync(uri);
+
+        this.setState({ capturing: false, captures: [{uri}, ...this.state.captures] })
     };
 
-    handleLongCapture = async () => {
-        const videoData = await this.camera.recordAsync();
-        this.setState({ capturing: false, captures: [videoData, ...this.state.captures] });
-    };
+    //handleLongCapture = async () => {
+        //const {uri} = await this.camera.recordAsync();
+        //await MediaLibrary.saveToLibraryAsync(uri);
+
+       // this.setState({ capturing: false, captures: [{uri}, ...this.state.captures] });
+    //};
 
     async componentDidMount() {
-        const camera = await Permissions.askAsync(Permissions.CAMERA);
+        const camera = await Permissions.askAsync(Permissions.CAMERA_ROLL);
         const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
         const hasCameraPermission = (camera.status === 'granted' && audio.status === 'granted');
 
@@ -75,7 +80,7 @@ export default class CameraPage extends React.Component {
                     setCameraType={this.setCameraType}
                     onCaptureIn={this.handleCaptureIn}
                     onCaptureOut={this.handleCaptureOut}
-                    onLongCapture={this.handleLongCapture}
+                    //onLongCapture={this.handleLongCapture}
                     onShortCapture={this.handleShortCapture}
                 />
             </React.Fragment>
