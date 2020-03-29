@@ -39,6 +39,19 @@ export const gStyles = StyleSheet.create({
         //backgroundColor: '#90CAF9'
         
     },
+    countDownTest : {
+        fontSize: 48,
+        fontWeight: 'bold',
+        color: '#FFF',
+
+        alignItems:'center',
+        justifyContent:'center',
+        alignSelf:'center',
+        textAlign:'center',
+
+        // position: 'absolute',
+        // bottom: 10,
+    },
     
     container : {
         padding: 5,
