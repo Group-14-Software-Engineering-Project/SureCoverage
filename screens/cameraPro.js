@@ -9,22 +9,19 @@ import styles from './styles';
 import Toolbar from './toolbar.component';
 import Gallery from './gallery.component';
 
+let countDown = ''; 
+
 export default class CameraPage extends React.Component {
     camera = null;
-    countDown = 5;
 
-    
     state = {
-        countDown,
+        countDown: '',
         captures: [],
         capturing: null,
         hasCameraPermission: null,
         cameraType: Camera.Constants.Type.back,
         flashMode: Camera.Constants.FlashMode.off,
     };
-
-
-
 
     setFlashMode = (flashMode) => this.setState({ flashMode });
     setCameraType = (cameraType) => this.setState({ cameraType });
@@ -36,18 +33,18 @@ export default class CameraPage extends React.Component {
     };
 
     handleShortCapture = async () => {
-            // display 5 on screen//waits one second 
+            // // display 5 on screen//waits one second 
             countDown = 5;
             this.setState({ countDown });
             console.info('5 seconds');
             await new Promise(resolve => setTimeout(resolve, 1000));
             
-            // display 4 on screen //waits another second 
+            // // display 4 on screen //waits another second 
             countDown = 4;
             this.setState({ countDown });
             console.info('4 seconds');
             await new Promise(resolve => setTimeout(resolve, 1000));
-            // etc..
+            // // etc..
             countDown = 3;
             this.setState({ countDown });
             console.info('3 seconds');
@@ -69,7 +66,7 @@ export default class CameraPage extends React.Component {
 
 
 
-            // photo taken, tell the user
+            // // photo taken, tell the user
             countDown = 'Capture!';
             this.setState({ countDown });
             console.info('photo taken');
@@ -105,7 +102,7 @@ export default class CameraPage extends React.Component {
         } else if (hasCameraPermission === false) {
             return <Text>Access to camera has been denied.</Text>;
         }
-
+        //<Text style = {gStyles.countDownTest}>{this.state.countDown} </Text>
         return (
             <React.Fragment>
                 <View>
