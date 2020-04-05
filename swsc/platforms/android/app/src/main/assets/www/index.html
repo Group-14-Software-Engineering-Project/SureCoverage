@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>SureCoverage</title>
+    </head>
+    <body>
+    	<div id="loading" align="center" style="margin-top: 150px">
+    		<h1 style="font-size: 60px">
+    			<b>LOADING...</b>
+    		</h1>
+    	</div>
+    	<div style="margin-top: 25px; display: none" id="home">
+    		<h1 align="center" style="font-size: 40px">
+    			<b>SureCoverage app,</b>
+    		</h1>
+    		<h2 align="center" style="font-size: 30px">
+    			 by SureWash TCD
+    		</h2>
+    		<div align="center">
+	    		<img id="logo" src="img/logo.png" />
+	    	</div>
+    		
+    		<ul align="center">
+    			<li>
+    				<span>
+    					How to use
+    				</span>
+    			</li>
+    			<br>
+    			<br>
+    			<li>
+    				<a href="https://surewash.com/">
+    					Visit SureWash
+    				</a>
+    			</li>
+    			<br>
+    			<br>
+    			<li>
+    				<a href="https://www2.hse.ie/coronavirus/">
+    					More info on COVID-19
+    				</a>
+    			</li>
+    			<br>
+    			<br>
+    			<li>
+    				<span>
+    					App Terms & Conditions
+    				</span>
+    			</li>
+    		</ul>
+    		
+    		<div align="right" style="bottom: 0">
+	    		<button id="proceed">
+	    			<span style="font-size: 40px">
+	    				PROCEED >>
+	    			</span>
+    			</button>
+    		</div>
+    		
+    	</div>
+    	
+    	<video style="display: none" id="cameraStream"></video>
+		
+		<canvas style="display: none" id="canvasOutput"></canvas>
+		
+		
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/opencv.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
