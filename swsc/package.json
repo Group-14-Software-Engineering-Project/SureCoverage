@@ -26,8 +26,8 @@
       "cordova-plugin-android-permissions": {}
     },
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }

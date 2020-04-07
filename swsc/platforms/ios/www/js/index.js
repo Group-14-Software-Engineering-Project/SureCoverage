@@ -55,53 +55,68 @@ var app = {
     	
     	app.permissions = cordova.plugins.permissions;
     	
+    	document.getElementById('proceed').addEventListener('click', app.setUpCameraPermission);
+    	
     	app.video = document.getElementById("cameraStream");
     	app.video.height = app.height;
     	app.video.width = app.width;
     	
-    	app.setUpCameraPermission();
+    	document.getElementById("logo").height = 300;
+    	document.getElementById("logo").width = 300;
+    	
+    	app.nav("Loading", "Home");
     	
     },
     
     setUpCameraPermission: function() {
     	
-    	let cameraPermission = "android.permission.CAMERA";
+    	app.nav("Home", "Loading");
     	
-    	app.permissions.checkPermission(cameraPermission, doneCheckedCameraPermission, app.reportError);
+    	if (window.cordova.platformId == "android") {
     	
-    	function doneCheckedCameraPermission(status) {
-    		
-    		if (status.hasPermission) {
-    			
-    			app.setUpCameraStream();
-    			
-    		} else {
-    			
-    			app.permissions.requestPermission(cameraPermission, doneRequestedCameraPermission, failRequestedCameraPermission);
-    			
-    		}
-    		
-    	}
+	    	let cameraPermission = "android.permission.CAMERA";
+	    	
+	    	app.permissions.checkPermission(cameraPermission, doneCheckedCameraPermission, app.reportError);
+	    	
+	    	function doneCheckedCameraPermission(status) {
+	    		
+	    		if (status.hasPermission) {
+	    			
+	    			app.setUpCameraStream();
+	    			
+	    		} else {
+	    			
+	    			app.permissions.requestPermission(cameraPermission, doneRequestedCameraPermission, failRequestedCameraPermission);
+	    			
+	    		}
+	    		
+	    	}
+	    	
+	    	function doneRequestedCameraPermission() {
+	    		
+	    		app.setUpCameraStream();
+	    		
+	    	}
+	    	
+	    	function failRequestedCameraPermission(error) {
+	    		
+	    		if ((error.name == "NotAllowedError") || (error.name == "SecurityError")) {
+	    			
+	    			alert("App cannot proceed without permission to use the Camera, try again");
+	    			
+	    			app.setUpCameraPermission();
+	    			
+	    		} else {
+	    			
+	    			app.reportError(error);
+	    			
+	    		}
+	    		
+	    	}
     	
-    	function doneRequestedCameraPermission() {
+    	} else {
     		
     		app.setUpCameraStream();
-    		
-    	}
-    	
-    	function failRequestedCameraPermission(error) {
-    		
-    		if ((error.name == "NotAllowedError") || (error.name == "SecurityError")) {
-    			
-    			alert("App cannot proceed without permission to use the Camera, try again");
-    			
-    			app.setUpCameraPermission();
-    			
-    		} else {
-    			
-    			app.reportError(error);
-    			
-    		}
     		
     	}
     	
@@ -149,6 +164,8 @@ var app = {
     },
     
     detectHand: function() {
+    	
+    	app.nav("Loading", "Camera");
     	
     	cvItems.colour = new cv.Mat(app.height, app.width, cv.CV_8UC4);
     	
@@ -240,8 +257,6 @@ var app = {
     	let cameraStreamGreyscale = cvItems.grey;
 		
 		let tmp = cv.Mat.zeros(cvItems.grey.rows, cvItems.grey.cols, cvItems.grey.type());
-		
-		let handScore = document.getElementById('score');
 	
 		// draw the shape of the hand for use as a mask
 		cv.drawContours(tmp, cvItems.contours, handContour, new cv.Scalar(WHITE), cv.FILLED);
@@ -307,6 +322,7 @@ var app = {
 		}
 		
 		cv.imshow('canvasOutput', heatmap);
+		app.nav("Camera", "Result");
 	
 		// ------- CALCULATE HAND SCORE -------
 	
@@ -318,7 +334,14 @@ var app = {
 	
 		// the cleanliness score is the ratio of clean pixels to total pixels in the hand
 		let cleanlinessScore = (cleanArea/handArea)*100;
-		handScore.innerHTML = cleanlinessScore.toFixed(2);
+		alert("Your hand cleanliness score is: " + cleanlinessScore.toFixed(2) + "%");
+		
+	},
+	
+	nav: function(prev, nxt) {
+		
+		document.getElementById(prev).style.display = "none";
+		document.getElementById(nxt).style.display = "inline";
 		
 	},
 	

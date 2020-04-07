@@ -1,15 +1,25 @@
+@font-face {
+	
+	font-family: 'ProductSans';
+	src: url('./productsans.ttf');
+	
+}
+
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    font-family: 'ProductSans';
+    background-color: #2D383A;
+    color: #FFFFFF;
 }
 
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    /*background-color:#E4E4E4;*/
+    /*background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
-    font-size:12px;
+    font-size:12px;*/
     height:100vh;
     margin:0px;
     padding:0px;
@@ -86,4 +96,17 @@ h1 {
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
+}
+
+.page {
+	
+	display: none;
+	align: center;
+	
+}
+
+#Loading {
+	
+	display: inline;
+	
 }

@@ -2,7 +2,7 @@
 
 platform :ios, '10.0'
 
-target 'HelloCordova' do
-	project 'HelloCordova.xcodeproj'
+target 'SureCoverage' do
+	project 'SureCoverage.xcodeproj'
 
 end
