@@ -10,7 +10,7 @@
           "/manifest": [
             {
               "xml": "<uses-permission android:name=\"android.permission.CAMERA\" />",
-              "count": 10,
+              "count": 12,
               "after": "uses-permission"
             }
           ]

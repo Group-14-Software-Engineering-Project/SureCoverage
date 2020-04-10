@@ -183,7 +183,7 @@ h1 {
 #Home {
     background: rgb(8,45,54);
     background: linear-gradient(175deg, rgba(8,45,54,1) 31%, rgba(1,152,179,1) 82%, rgba(28,69,101,1) 100%);
-    display: inline;
+    display: none;
 	
 }
 
