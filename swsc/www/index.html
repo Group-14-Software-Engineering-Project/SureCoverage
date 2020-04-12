@@ -1,106 +1,115 @@
 <!DOCTYPE html>
 <html>
     <head>
+    	
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+		
 		<link rel="stylesheet" type="text/css" href="css/index.css">
-		<!--bootstrap-->
-		<link rel="stylesheetbootstrap" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-		<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-		<!--bootstrap end-->
+		
 		<title>SureCoverage</title>
+		
 	</head>
 	
     <body>
 
-		<!-- Loading-->
-    	<div class="page" id="Loading" background= "rgb(8,45,54)">
-			<div class="backgroundRectangle" >
-				<h1>
-					<b id="loadingText">LOADING...</b>
-						<div class="sk-cube-grid">
-							<div class="sk-cube sk-cube1"></div>
-							<div class="sk-cube sk-cube2"></div>
-							<div class="sk-cube sk-cube3"></div>
-							<div class="sk-cube sk-cube4"></div>
-							<div class="sk-cube sk-cube5"></div>
-							<div class="sk-cube sk-cube6"></div>
-							<div class="sk-cube sk-cube7"></div>
-							<div class="sk-cube sk-cube8"></div>
-							<div class="sk-cube sk-cube9"></div>
-						</div>
-				</h1>
+    	<div class="page" id="Loading">
 			
+			<div class="sk-cube-grid">
+				<div class="sk-cube sk-cube1"></div>
+				<div class="sk-cube sk-cube2"></div>
+				<div class="sk-cube sk-cube3"></div>
+				<div class="sk-cube sk-cube4"></div>
+				<div class="sk-cube sk-cube5"></div>
+				<div class="sk-cube sk-cube6"></div>
+				<div class="sk-cube sk-cube7"></div>
+				<div class="sk-cube sk-cube8"></div>
+				<div class="sk-cube sk-cube9"></div>
 			</div>
+			
+			<h1>
+				LOADING...
+			</h1>
+			
 		</div>
 		
-		<!-- Main Home Page-->
     	<div class="page" id="Home" >
-
-			<div class="imageBackground">
-				<div class="box">
-					<img  src="img/SureWashBackgroudAltered.jpg" >
-					<div align="center" class="text">
-						<b>Sure Coverage</b>
-					</div>
-					<div align="center" class="subtext">
-						<b>By SureWash Trinity</b>
-					</div>
-					
-				</div>
-				<div id="rectangle"></div>
-				<div class="logobox">
-					<div align="center" class="logo">
-						<img id="logo" src="img/logo.png" />
-					</div>
-				</div>
+			
+			<div id="header">
+				
+				<h1>
+					SureCoverage, by SureWash TCD
+				</h1>
+				
+				<img id="logo" />
+				
 			</div>
-
-    		
-    		
-    		<ul class="list" align="center" >
-				<button align="center" class="button" padding= 10 onclick="window.location.href = 'https://www2.hse.ie/coronavirus/';">
-					Hand Washing Tutorial
-				</button>
-				<br><br>
-				<button align="center" class="button" onclick="window.location.href = 'https://www2.hse.ie/coronavirus/';">
-					Info on COVID-19
-				</button>
-				<br><br>
-				<button align="center" class="button" onclick="window.location.href = 'https://surewash.com/terms-of-service/';">
-					Terms & Conditions
-				</button>
-				<br><br>
-				<button align="center" class="button" onclick="window.location.href = 'https://surewash.com/privacy-policy/';">
-					Privacy Policy
-				</button>
-				<br><br>
-				<!-- Camera Button-->
-				<div align="center" style="bottom: 0">
-					<button id="proceed" class="button">
-						<span>
-							Capture Image
-						</span>
+			
+			<ul id="menu">
+				
+				<li class="menuItem">
+					<button class="menuButton" onclick="window.location.href = 'https://www2.hse.ie/coronavirus/';">
+						Hand Washing Tutorial
 					</button>
-				</div>
-    		</ul>
+				</li>
+				<li class="menuItem">
+					<button class="menuButton" onclick="window.location.href = 'https://www2.hse.ie/coronavirus/';">
+						Info on COVID-19
+					</button>
+				</li>
+				<li class="menuItem">
+					<button class="menuButton" onclick="window.location.href = 'https://surewash.com/terms-of-service/';">
+						Terms & Conditions
+					</button>
+				</li>
+				<li class="menuItem">
+					<button class="menuButton" onclick="window.location.href = 'https://surewash.com/privacy-policy/';">
+						Privacy Policy
+					</button>
+				</li>
+				<li class="menuItem">
+					<button id="beginButton">
+						BEGIN
+					</button>
+				</li>
+				
+			</ul>
+			
     	</div>
     	
     	<div class="page" id="Camera">
+    		
 	    	<video id="cameraStream"></video>
+	    	
+	    	<div id="overlay">
+	    		
+	    		<h2 id="overlayText"></h2>
+	    		
+	    	</div>
+	    	
 	    </div>
 		
 		<div class="page" id="Result">
-			<canvas id="canvasOutput"></canvas>
+			
+			<button id="resultButton">
+				<span id="resultText">BACK</span>
+			</button>
+			
+			<canvas id="front"></canvas>
+			
+			<canvas id="back"></canvas>
+			
 		</div>
 		
-		<!-- Conall's Work -- Necessary Scripts -->
+		<button id="homeButton">
+			HOME
+		</button>
+		
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/opencv.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        
     </body>
+    
 </html>
