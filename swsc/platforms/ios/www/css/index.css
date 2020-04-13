@@ -5,108 +5,323 @@
 	
 }
 
-* {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
-    font-family: 'ProductSans';
-    background-color: #2D383A;
-    color: #FFFFFF;
+:root {
+	
+	font-size: 18px;
+	
 }
 
-body {
+
+* {
+	
+    font-family: 'ProductSans';
+    color: #FFFFFF;
+    
+}
+
+html, body {
+    
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    /*background-color:#E4E4E4;*/
-    /*background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
-    font-size:12px;*/
-    height:100vh;
-    margin:0px;
-    padding:0px;
-    /* Padding to avoid the "unsafe" areas behind notches in the screen */
-    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-right, 0px);
-    text-transform:uppercase;
+    position: fixed;
+    height:100%;
     width:100%;
-}
-
-/* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
-}
-
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
-    }
-}
-
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
-}
-
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
-}
-
-.event.listening {
-    background-color:#333333;
-    display:block;
-}
-
-.event.received {
-    background-color:#4B946A;
-    display:none;
-}
-
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+    margin: 0;
+    padding: 0;
+    background: rgb(8,45,54);
+    
 }
 
 .page {
-	
+    
 	display: none;
-	align: center;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	text-align: center;
 	
 }
 
 #Loading {
 	
-	display: inline;
+    display: inline-block;
+    background:linear-gradient(180deg, #082d36 31%, rgba(0, 93, 109, 0.938) 82%);
 	
 }
+
+#Home {
+	
+    background: linear-gradient(175deg, rgba(8,45,54,1) 31%, rgba(1,152,179,1) 82%, rgba(28,69,101,1) 100%);
+	
+}
+
+#header {
+	
+	display: inline-block;
+	height: 35%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background: url('../img/swHeader.jpg');
+	
+}
+
+#logo {
+	
+	content: url('../img/swLogo.png');
+	height: 60%;
+	width: 40%;
+	
+}
+
+#menu {
+	
+	display: inline-block;
+	list-style-type: none;
+	height: 65%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	
+}
+
+.menuItem {
+	
+	margin: 5% 0%;
+	
+}
+
+.menuButton {
+	
+	padding: 1rem;
+    font-size: 1rem;
+    text-align: center;
+    background-color: transparent;
+    border: 0.3rem solid #696969;
+    border-radius: 1rem;
+    box-shadow: 0 0.3rem #999;
+	
+}
+
+#beginButton {
+	
+	padding: 1rem 3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    background-color: #333235;
+    border: 0.3rem solid #696969;
+    border-radius: 1rem;
+    box-shadow: 0 0.3rem #999;
+	
+}
+
+#Camera {
+	
+	
+	
+}
+
+#overlay {
+	
+	position: fixed;
+	display: none;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+	z-index: 2;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	
+}
+
+#overlayText {
+	
+	position: absolute;
+	text-align: center;
+	top: 40%;
+	padding: 5%;
+	font-size: 2rem;
+	
+}
+
+#Result {
+	
+    background: transparent;
+    
+}
+
+#resultButton {
+	
+	position: fixed;
+	background-color: rgb(255,255,255);
+	z-index: 3;
+	left: 0;
+	top: 0;
+	width: 25%;
+	padding: 0.5rem 1rem;
+    border: 0.3rem solid #696969;
+    border-radius: 1rem;
+	
+}
+
+#resultText {
+	
+	color: #000000;
+	font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+	
+}
+
+#front {
+	
+	display: inline-block;
+	
+}
+
+#back {
+	
+	display: none;
+	
+}
+
+#homeButton {
+	
+	position: fixed;
+	display: none;
+	background-color: rgb(255,255,255);
+	color: #000000;
+	z-index: 3;
+	left: 0;
+	bottom: 0;
+	padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    border: 0.3rem solid #696969;
+    border-radius: 1rem;
+	
+}
+
+/*
+------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
+                    LOADING ANIMATION
+------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.sk-cube-grid {
+    width: 90px;
+    height: 90px;
+    margin: 50% auto;
+  }
+  
+  .sk-cube-grid .sk-cube {
+    width: 33%;
+    height: 33%;
+    background-color: #FFFFFF;
+    float: left;
+    -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+            animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+  }
+  .sk-cube-grid .sk-cube1 {
+    -webkit-animation-delay: 0.2s;
+            animation-delay: 0.2s; }
+  .sk-cube-grid .sk-cube2 {
+    -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s; }
+  .sk-cube-grid .sk-cube3 {
+    -webkit-animation-delay: 0.4s;
+            animation-delay: 0.4s; }
+  .sk-cube-grid .sk-cube4 {
+    -webkit-animation-delay: 0.1s;
+            animation-delay: 0.1s; }
+  .sk-cube-grid .sk-cube5 {
+    -webkit-animation-delay: 0.2s;
+            animation-delay: 0.2s; }
+  .sk-cube-grid .sk-cube6 {
+    -webkit-animation-delay: 0.3s;
+            animation-delay: 0.3s; }
+  .sk-cube-grid .sk-cube7 {
+    -webkit-animation-delay: 0s;
+            animation-delay: 0s; }
+  .sk-cube-grid .sk-cube8 {
+    -webkit-animation-delay: 0.1s;
+            animation-delay: 0.1s; }
+  .sk-cube-grid .sk-cube9 {
+    -webkit-animation-delay: 0.2s;
+            animation-delay: 0.2s; }
+  
+  @-webkit-keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+      -webkit-transform: scale3D(1, 1, 1);
+              transform: scale3D(1, 1, 1);
+    } 35% {
+      -webkit-transform: scale3D(0, 0, 1);
+              transform: scale3D(0, 0, 1); 
+    }
+  }
+  
+  @keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+      -webkit-transform: scale3D(1, 1, 1);
+              transform: scale3D(1, 1, 1);
+    } 35% {
+      -webkit-transform: scale3D(0, 0, 1);
+              transform: scale3D(0, 0, 1);
+    } 
+  }
+
+  .slidecontainer {
+    max-width: 400px;
+    position: relative;
+    margin: auto;
+  }
+
+  .slides {
+    display: none;
+  }
+
+  .text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .picIndex {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+
+  .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+
+  @-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+  
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }

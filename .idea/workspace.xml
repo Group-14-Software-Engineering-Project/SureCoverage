@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="47e6afa1-72fe-4263-b05b-3fde95f2810b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/swsc/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/android/android.json" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/android/android.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/android/app/src/main/assets/www/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/android/app/src/main/assets/www/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/android/app/src/main/assets/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/android/app/src/main/assets/www/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/android/app/src/main/assets/www/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/android/app/src/main/assets/www/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/android/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/android/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/android/app/src/main/res/xml/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/android/app/src/main/res/xml/config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/android/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/ios/SureCoverage/Images.xcassets/LaunchStoryboard.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/ios/SureCoverage/Images.xcassets/LaunchStoryboard.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/ios/SureCoverage/SureCoverage-Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/ios/SureCoverage/SureCoverage-Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/ios/SureCoverage/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/ios/SureCoverage/config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/ios/ios.json" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/ios/ios.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/ios/www/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/ios/www/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/ios/www/img/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/ios/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/ios/www/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/platforms/ios/www/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/platforms/ios/www/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/www/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/www/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/www/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/www/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swsc/www/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/swsc/www/js/index.js" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="974" />
+    <option name="height" value="1047" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="47e6afa1-72fe-4263-b05b-3fde95f2810b" name="Default Changelist" comment="" />
+      <created>1586695544649</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586695544649</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info id="Captures" order="0" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.3523454" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="Resources Explorer" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="TODO" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="2" />
+      <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="1" />
+      <window_info anchor="right" id="Palette&#9;" order="2" />
+      <window_info anchor="right" id="Flutter Inspector" order="3" />
+      <window_info anchor="right" id="Flutter Outline" order="4" />
+      <window_info anchor="right" id="Flutter Performance" order="5" />
+    </layout>
+  </component>
+</project>

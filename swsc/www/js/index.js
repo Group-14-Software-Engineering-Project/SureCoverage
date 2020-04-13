@@ -109,12 +109,14 @@ var app = {
     	
         document.addEventListener('deviceready', app.ready);
         
-    },
+	},
+
     
     ready: function() {
     	
     	app.permissions = cordova.plugins.permissions;
-    	
+		
+		document.getElementById('slideshowbutton').addEventListener('click',app.slideShow);
     	document.getElementById('beginButton').addEventListener('click', app.beginHandTest);
     	document.getElementById('homeButton').addEventListener('click', app.returnHome);
     	document.getElementById('resultButton').addEventListener('click', app.getOtherResult);
@@ -538,7 +540,25 @@ var app = {
 		
 		console.log("Name: " + error.name + ", Message: " + error.message);
 		
-	}
+	},
+	slideShow:function() {
+		{
+			app.nav("Home, Loading")
+			var slideIndex = 0;
+			var slides = document.getElementByClassName("slides");
+			for(var j = 0; j< slides.length; j++)
+			{
+				slides[i].style.display = "none";
+			}
+			slideIndex++;
+			if(slideIndex > slides.length)
+			{
+				slideIndex = 1;
+			}
+			slides[slideIndex-1].style.display = "block";
+			setTimeout(slideShow, 2000)
+		}
+	},
     
 };
 

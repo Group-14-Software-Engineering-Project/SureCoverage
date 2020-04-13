@@ -1,79 +1,155 @@
 <!DOCTYPE html>
 <html>
     <head>
+    	
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>SureCoverage</title>
-    </head>
+		
+		<link rel="stylesheet" type="text/css" href="css/index.css">
+		
+		<title>SureCoverage</title>
+		
+	</head>
+	
     <body>
+
     	<div class="page" id="Loading">
-    		<h1 style="font-size: 60px">
-    			<b>LOADING...</b>
-    		</h1>
-    	</div>
-    	<div class="page" id="Home">
-    		<h1 align="center" style="font-size: 40px">
-    			<b>SureCoverage app,</b>
-    		</h1>
-    		<h2 align="center" style="font-size: 30px">
-    			 by SureWash TCD
-    		</h2>
-    		<div align="center">
-	    		<img id="logo" src="img/logo.png" />
-	    	</div>
-    		
-    		<ul align="center">
-    			<li>
-    				<span>
-    					How to use
-    				</span>
-    			</li>
-    			<br>
-    			<br>
-    			<li>
-    				<a href="https://surewash.com/">
-    					Visit SureWash
-    				</a>
-    			</li>
-    			<br>
-    			<br>
-    			<li>
-    				<a href="https://www2.hse.ie/coronavirus/">
-    					More info on COVID-19
-    				</a>
-    			</li>
-    			<br>
-    			<br>
-    			<li>
-    				<span>
-    					App Terms & Conditions
-    				</span>
-    			</li>
-    		</ul>
-    		
-    		<div align="right" style="bottom: 0">
-	    		<button id="proceed">
-	    			<span style="font-size: 40px">
-	    				PROCEED >>
-	    			</span>
-    			</button>
-    		</div>
-    		
+			
+			<div class="sk-cube-grid">
+				<div class="sk-cube sk-cube1"></div>
+				<div class="sk-cube sk-cube2"></div>
+				<div class="sk-cube sk-cube3"></div>
+				<div class="sk-cube sk-cube4"></div>
+				<div class="sk-cube sk-cube5"></div>
+				<div class="sk-cube sk-cube6"></div>
+				<div class="sk-cube sk-cube7"></div>
+				<div class="sk-cube sk-cube8"></div>
+				<div class="sk-cube sk-cube9"></div>
+			</div>
+			
+			<h1>
+				LOADING...
+			</h1>
+			
+		</div>
+		
+    	<div class="page" id="Home" >
+			
+			<div id="header">
+				
+				<h1>
+					SureCoverage, by SureWash TCD
+				</h1>
+				
+				<img id="logo" />
+				
+			</div>
+			
+			<ul id="menu">
+				
+				<li class="menuItem">
+					<button id = "slideshowbutton">
+						Hand Washing Tutorial
+					</button>
+				</li>
+				<li class="menuItem">
+					<button class="menuButton" onclick="window.location.href = 'https://www2.hse.ie/coronavirus/';">
+						Info on COVID-19
+					</button>
+				</li>
+				<li class="menuItem">
+					<button class="menuButton" onclick="window.location.href = 'https://surewash.com/terms-of-service/';">
+						Terms & Conditions
+					</button>
+				</li>
+				<li class="menuItem">
+					<button class="menuButton" onclick="window.location.href = 'https://surewash.com/privacy-policy/';">
+						Privacy Policy
+					</button>
+				</li>
+				<li class="menuItem">
+					<button id="beginButton">
+						BEGIN
+					</button>
+				</li>
+				
+			</ul>
+			
     	</div>
     	
     	<div class="page" id="Camera">
+    		
 	    	<video id="cameraStream"></video>
+	    	
+	    	<div id="overlay">
+	    		
+	    		<h2 id="overlayText"></h2>
+	    		
+	    	</div>
+	    	
 	    </div>
 		
 		<div class="page" id="Result">
-			<canvas id="canvasOutput"></canvas>
+			
+			<button id="resultButton">
+				<span id="resultText">BACK</span>
+			</button>
+			
+			<canvas id="front"></canvas>
+			
+			<canvas id="back"></canvas>
+			
 		</div>
+
+		<div class ="page" id="slideshow">
+			<div class = "slidecontainer">
+				<div class = "slides">
+					<div class="picIndex">1 / 7</div>
+					<img src = "./img/image3.png" style = "width:97%">
+					<div class ="text">Rub hands palm to palm.</div>
+				</div>
+				<div class = "slides">
+					<div class="picIndex">2 / 7</div>
+					<img src = "./img/image4.png" style = "width:97%">
+					<div class ="text">Right palm over left dorsum with interlaced fingers and vica versa.</div>
+				</div>
+				<div class = "slides">
+					<div class="picIndex">3 / 7</div>
+					<img src = "./img/image5.png" style = "width:97%">
+					<div class ="text">Palm to palm with fingers interlaced</div>
+				</div>
+				<div class = "slides">
+					<div class="picIndex">4 / 7</div>
+					<img src = "./img/image6.png" style = "width:97%">
+					<div class ="text">Backs of fingers to opposing palms with fingers interlocked.</div>
+				</div>
+				<div class = "slides">
+					<div class="picIndex">5 / 7</div>
+					<img src = "./img/image7.png" style = "width:97%">
+					<div class ="text">Rotational rubbing of left thumb clasped in right palm and vica versa.</div>
+				</div>
+				<div class = "slides">
+					<div class="picIndex">6 / 7</div>
+					<img src = "./img/image8.png" style = "width:97%">
+					<div class ="text">Rotational rubbing, backwards and forwards with clasped fingers of right hand in left palm and vica versa.</div>
+				</div>
+				<div class = "slides">
+					<div class="picIndex">7 / 7</div>
+					<img src = "./img/image12.png" style = "width:97%">
+					<div class ="text">"You are ready to take a photo!"</div>
+				</div>
+			</div>
+		</div>		
+		<button id="homeButton">
+			HOME
+		</button>
 		
-		
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/opencv.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        
     </body>
+    
 </html>

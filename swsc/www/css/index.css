@@ -106,6 +106,16 @@ html, body {
 	
 }
 
+#slideshowbutton {
+  padding: 1rem;
+  font-size: 1rem;
+  text-align: center;
+  background-color: transparent;
+  border: 0.3rem solid #696969;
+  border-radius: 1rem;
+  box-shadow: 0 0.3rem #999;
+}
+
 #beginButton {
 	
 	padding: 1rem 3rem;
@@ -279,4 +289,49 @@ html, body {
       -webkit-transform: scale3D(0, 0, 1);
               transform: scale3D(0, 0, 1);
     } 
+  }
+
+  .slidecontainer {
+    max-width: 400px;
+    position: relative;
+    margin: auto;
+  }
+
+  .slides {
+    display: none;
+  }
+
+  .text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .picIndex {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+
+  .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+
+  @-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+  
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
   }

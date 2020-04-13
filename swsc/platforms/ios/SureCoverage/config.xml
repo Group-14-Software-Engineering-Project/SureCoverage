@@ -26,7 +26,7 @@
     <author email="gerard.lacey@surewash.com" href="http://surewash.com">
         SureWash TCD
     </author>
-    <icon src="/www/img/logo.png" />
+    <icon src="/www/img/swLogo.png" />
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
