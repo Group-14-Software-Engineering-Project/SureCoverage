@@ -1,5 +1,5 @@
 # **Software Engineering Group Project: Group 14**  
- **Team Members:** Conall Keane, Alex Kennedy, Marina Boyero, John Keaney, David Kavanagh, Paul Lee.
+ **Team Members:** Conall Keane, Alex Kennedy, Marina Boyero, John Keaney, David Kavanagh, Paul Lee.  
 **Client:** Gerard Lacey: Surewash.
 
 ## Folder Information
