@@ -21,11 +21,11 @@ const PARAMS = {
 	// if the ratio of (bright pixels) : (total screen pixels) is above this, the hand is too near
 	HAND_TOO_NEAR: 0.75,
 	
-	// the number of seconds the hand must be held still for to be captured
-	SECONDS_UNTIL_CAPTURE: 3,
+	// the number of detection loops the hand must be held still for to be captured
+	LOOPS_UNTIL_CAPTURE: 4,
 	
 	// the number of milliseconds between checking the camera for the hand
-	DETECTION_PERIOD: 1000,
+	DETECTION_PERIOD: 500,
 	
 	// anything "cleaner" than this value will be ignored
 	MAX_INTENSITY: 100,
@@ -34,7 +34,7 @@ const PARAMS = {
 	MIN_INTENSITY: 30,
 	
 	// how much the mid-point of the current intensity range increases each loop
-	// larger step = less colours "visited" = less variation in heatmap colour (so less insightful)
+	// larger step = less colours "visited" = less variation in heatmap colour
 	INTENSITY_STEP: 2,
 	
 	// the exponential factor in the red to yellow transition
@@ -51,7 +51,13 @@ const PARAMS = {
 	HM_ALPHA: 255,
 	
 	// any pixel below this intensity isn't "clean" enough
-	CLEAN_CUTOFF: 50
+	CLEAN_CUTOFF: 50,
+	
+	// the time in milliseconds that the heatmap of the captured image will flash on screen for
+	SHUTTE_TIME: 250,
+	
+	// the duration in milliseconds that each slide will display for
+	SLIDE_TIME: 5000
 	
 };
 
@@ -91,6 +97,18 @@ const OVERLAY_MESSAGES = [
 	
 ];
 
+var slideSubtitles = [
+	
+	"Rub hands palm to palm.",
+	"Right palm over left dorsum with interlaced fingers and vica versa.",
+	"Palm to palm with fingers interlaced." ,
+	"Backs of fingers to opposing palms with fingers interlocked.",
+	"Rotational rubbing of left thumb clasped in right palm and vica versa.",
+	"Rotational rubbing, backwards and forwards with clasped fingers of right hand in left palm and vica versa.",
+	"You are ready to take a photo!"
+	
+];
+
 var app = {
 	
     permissions: null,
@@ -104,6 +122,9 @@ var app = {
     height: window.innerHeight,
     width: window.innerWidth,
     area: window.innerHeight*window.innerWidth,
+    
+    currentHandCheck: null,
+    currentSlideshow: null,
     
     init: function() {
     	
@@ -143,8 +164,6 @@ var app = {
     		
     		app.setUpCameraPermission();
     		
-    		app.setUpCameraStream();
-    		
     	} else {
     		
     		app.video.play();
@@ -177,6 +196,10 @@ var app = {
 	    			
 	    			app.permissions.requestPermission(cameraPermission, requestedCameraPermission, app.reportError);
 	    			
+	    		} else {
+	    			
+	    			app.setUpCameraStream();
+	    			
 	    		}
 	    		
 	    	}
@@ -188,6 +211,10 @@ var app = {
 	    			alert("App cannot proceed without permission to use the Camera, try again");
     			
 	   				app.setUpCameraPermission();
+	    			
+	    		} else {
+	    			
+	    			app.setUpCameraStream();
 	    			
 	    		}
 	    		
@@ -349,13 +376,17 @@ var app = {
 				
 			}
 			
-			if (loopsHandDetected < PARAMS.SECONDS_UNTIL_CAPTURE) {
+			if (loopsHandDetected < PARAMS.LOOPS_UNTIL_CAPTURE) {
 				
-				let delay = PARAMS.DELAY_PERIOD - (Date.now() - begin);
+				let delay = PARAMS.DETECTION_PERIOD - (Date.now() - begin);
 				
-				setTimeout(checkForHand, delay);
+				delay = (delay <= 0) ? PARAMS.DETECTION_PERIOD : delay;
+				
+				app.currentHandCheck = setTimeout(checkForHand, delay);
 				
 			} else {
+				
+				clearTimeout(app.currentHandCheck);
 				
 				app.video.pause();
 				
@@ -379,7 +410,7 @@ var app = {
 			
 		}
 		
-		setTimeout(checkForHand, 0);
+		app.currentHandCheck = setTimeout(checkForHand, 0);
 		
     },
     
@@ -459,7 +490,7 @@ var app = {
     		document.getElementById("resultButton").style.display = "none";
     		app.nav("Camera", "Result");
     	
-	    	setTimeout(function() {
+	    	let cameraShutter = setTimeout(function() {
 	    	
 	    		app.nav("Result", "Camera");
 	    		document.getElementById("resultButton").style.display = "inline-block";
@@ -470,7 +501,7 @@ var app = {
 		    	
 		    	app.detectHand();
 		    	
-	    	}, 250);
+	    	}, PARAMS.SHUTTER_TIME);
 			
 		} else {
 	    	
@@ -494,6 +525,34 @@ var app = {
 		
 	},
 	
+	slideShow: function() {
+		
+		app.nav("Home", "Slideshow");
+		
+		document.getElementById("homeButton").style.display = "inline-block";
+			
+		function nextSlide(index) {
+		
+			document.getElementById("slideIndex").innerHTML = (index + 1) + " / 7";
+			document.getElementById("slideImg").src = "./img/slide" + index + ".png";
+			document.getElementById("slideSubtitle").innerHTML = slideSubtitles[index];
+			
+			index++;
+			if (index < slideSubtitles.length) {
+
+				app.currentSlideshow = setTimeout(nextSlide, PARAMS.SLIDE_TIME, index);
+				
+			} else {
+				
+				setTimeout(app.returnHome, PARAMS.SLIDE_TIME);
+				
+			}
+			
+		}
+		
+		app.currentSlideshow = setTimeout(nextSlide, 0, 0);
+	},
+	
 	nav: function(prev, nxt) {
 		
 		document.getElementById(prev).style.display = "none";
@@ -505,9 +564,13 @@ var app = {
 		
 		app.video.pause();
 		
+		clearTimeout(app.currentHandCheck);
+		clearTimeout(app.currentSlideshow);
+		
 		document.getElementById("homeButton").style.display = "none";
 		document.getElementById("Camera").style.display = "none";
 		document.getElementById("Result").style.display = "none";
+		document.getElementById("Slideshow").style.display = "none";
 		document.getElementById("Home").style.display = "inline-block";
 		
 	},
@@ -540,25 +603,7 @@ var app = {
 		
 		console.log("Name: " + error.name + ", Message: " + error.message);
 		
-	},
-	slideShow:function() {
-		{
-			app.nav("Home, slideshow")
-			var slideIndex = 0;
-			var slides = document.getElementByClassName("slides");
-			for(var j = 0; j< slides.length; j++)
-			{
-				slides[i].style.display = "none";
-			}
-			slideIndex++;
-			if(slideIndex > slides.length)
-			{
-				slideIndex = 1;
-			}
-			slides[slideIndex-1].style.display = "block";
-			setTimeout(slideShow, 2000)
-		}
-	},
+	}
     
 };
 

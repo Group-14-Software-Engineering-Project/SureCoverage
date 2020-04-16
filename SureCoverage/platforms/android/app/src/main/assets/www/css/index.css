@@ -7,7 +7,7 @@
 
 :root {
 	
-	font-size: 18px;
+	font-size: 16px;
 	
 }
 
@@ -142,7 +142,7 @@ html, body {
 
 #overlayText {
 	
-	position: absolute;
+	position: relative;
 	text-align: center;
 	top: 40%;
 	padding: 5%;
@@ -188,6 +188,28 @@ html, body {
 #back {
 	
 	display: none;
+	
+}
+
+#Slideshow {
+	
+	
+	
+}
+
+#slide {
+	
+	position: relative;
+	height: 100%;
+	width: 100%;
+	top: 20%;
+	
+}
+
+#slideImg {
+	
+	height: 40%;
+	width: 90%;
 	
 }
 

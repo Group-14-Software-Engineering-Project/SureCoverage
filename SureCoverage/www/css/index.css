@@ -7,7 +7,7 @@
 
 :root {
 	
-	font-size: 18px;
+	font-size: 16px;
 	
 }
 
@@ -106,16 +106,6 @@ html, body {
 	
 }
 
-#slideshowbutton {
-  padding: 1rem;
-  font-size: 1rem;
-  text-align: center;
-  background-color: transparent;
-  border: 0.3rem solid #696969;
-  border-radius: 1rem;
-  box-shadow: 0 0.3rem #999;
-}
-
 #beginButton {
 	
 	padding: 1rem 3rem;
@@ -152,7 +142,7 @@ html, body {
 
 #overlayText {
 	
-	position: absolute;
+	position: relative;
 	text-align: center;
 	top: 40%;
 	padding: 5%;
@@ -198,6 +188,28 @@ html, body {
 #back {
 	
 	display: none;
+	
+}
+
+#Slideshow {
+	
+	
+	
+}
+
+#slide {
+	
+	position: relative;
+	height: 100%;
+	width: 100%;
+	top: 20%;
+	
+}
+
+#slideImg {
+	
+	height: 40%;
+	width: 90%;
 	
 }
 
