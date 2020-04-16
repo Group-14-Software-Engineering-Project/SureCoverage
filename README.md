@@ -34,4 +34,4 @@ Our app aims to detect how well a person washes their hands using the "OpenCV" i
 - The user can then return to the home page to scan again.  
 
 ### Video Demonstration:  
-https://youtu.be/Ksks7TT3utE
+https://youtu.be/L3lYIM6k-eQ
