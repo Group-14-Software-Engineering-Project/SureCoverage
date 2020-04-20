@@ -4,7 +4,7 @@
 **Client:** Gerard Lacey: Surewash.
 
 ## Folder Information
-We kept the original code for when we were developing the app in React Native Expo, but we had to change framework to Cordova as OpenCV was not compatible with it. Our working Cordova project is housed in the "swsc" folder and the source code is contained within the "www" folder.
+We kept the original code in the "OLD" folder for when we were developing the app in React Native Expo, but we had to change framework to Cordova as OpenCV was not compatible with it. Our working Cordova project is housed in the "SureCoverage" folder and the source code is contained within the "www" folder.
 
 ## App Installation.
 If you have an android phone, then simply download the "surecoverage.apk" file to your phone and you should be able to run it!
